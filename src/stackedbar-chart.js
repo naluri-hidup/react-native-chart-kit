@@ -20,6 +20,7 @@ class StackedBarChart extends AbstractChart {
       barWidth,
     } = config;
     const { usePercentage } = this.props;
+
     return data.map((x, i) => {
       const ret = [];
       let h = 0;
@@ -28,11 +29,8 @@ class StackedBarChart extends AbstractChart {
         h = isAllZero(x) ? 0 : (height - 55) * (x[z] / border)
         const label = usePercentage ? `${Math.trunc(x[z] * 100 / x.reduce((a, b) => a + b, 0))}%` : x[z];
         const y = (height / 4) * 3 - h + st;
-        const xC =
-          (paddingRight +
-            (i * (width - paddingRight)) / data.length +
-            barWidth / 2) *
-          0.7
+        const xC = (paddingRight + (i * (width - paddingRight)) / data.length + barWidth / 2) * 0.7
+
         ret.push(
           <Rect
             key={Math.random()}
@@ -49,7 +47,7 @@ class StackedBarChart extends AbstractChart {
               key={Math.random()}
               x={xC + barWidth / 2}
               textAnchor="middle"
-              y={h > 15 ? y + 15 : y + 7}
+              y={h > 15 ? y + 16 : y + 10}
               fontSize={12}
               fill="#fff"
             >
@@ -95,16 +93,9 @@ class StackedBarChart extends AbstractChart {
   hasLegend = () => this.props.data.legend && this.props.data.legend.length
 
   render() {
-    const paddingTop = 15
-    const paddingRight = 50
-    const {
-      width,
-      height,
-      style = {},
-      data,
-      withHorizontalLabels = true,
-      withVerticalLabels = true,
-    } = this.props;
+    const paddingTop = 2
+    const paddingRight = 55
+    const { width, height, style = {}, data, withHorizontalLabels = true, withVerticalLabels = true } = this.props;
     const { borderRadius = 0 } = style;
     const config = { width, height };
     let border = 0;
@@ -147,11 +138,11 @@ class StackedBarChart extends AbstractChart {
               && this.renderVerticalLabels({
                 ...config,
                 labels: data.labels,
-                paddingRight: paddingRight + 28,
+                paddingRight: paddingRight + 8,
                 stackedBar: true,
                 paddingTop,
                 horizontalOffset: barWidth,
-                rotation: "25"
+                // rotation: "15"
               })
             }
           </G>
@@ -162,9 +153,9 @@ class StackedBarChart extends AbstractChart {
               border,
               colors: this.props.data.barColors,
               paddingTop,
-              width: screenWidth - 50,
+              width: screenWidth + 0,
               barWidth,
-              paddingRight: paddingRight + (this.hasLegend() ? 20 : 0)
+              paddingRight: paddingRight + (this.hasLegend() ? 30 : 0)
             })}
           </G>
           {this.hasLegend() && this.renderLegend({
