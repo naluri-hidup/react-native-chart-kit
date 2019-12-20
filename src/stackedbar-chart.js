@@ -106,7 +106,7 @@ class StackedBarChart extends AbstractChart {
       }
     }
 
-    const barWidth = 40//(screenWidth - 50 - (this.hasLegend() ? 20 : 0)) / data.data.length;
+    const barWidth = 34//(screenWidth - 50 - (this.hasLegend() ? 20 : 0)) / data.data.length;
 
     return (
       <View style={style}>
