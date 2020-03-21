@@ -17,7 +17,26 @@ export interface LineChartProps {
   yAxisLabel?: string
   chartConfig: object
   decorator?: Function
-  onDataPointClick?: Function
+  /**
+   * Callback that is called when a data point is clicked.
+   */
+  onDataPointClick?: (data: {
+    index: number;
+    value: number;
+    dataset: Dataset;
+    x: number;
+    y: number;
+    getColor: (opacity: number) => string;
+  }) => void;
+  /**
+   * Renders additional content for dots in a line chart.
+   * Takes `({x, y, index})` as arguments.
+   */
+  renderDotContent?: (params: {
+    x: number;
+    y: number;
+    index: number;
+  }) => React.ReactNode;
   style?: object
   bezier?: boolean
   getDotColor?: (dataPoint: any, index: number) => string
