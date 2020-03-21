@@ -36,6 +36,7 @@ export interface LineChartProps {
     x: number;
     y: number;
     index: number;
+    value: number;
   }) => React.ReactNode;
   style?: object
   bezier?: boolean
