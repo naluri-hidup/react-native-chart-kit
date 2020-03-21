@@ -28,6 +28,13 @@ class LineChart extends AbstractChart {
     const datas = this.getDatas(data)
     const baseHeight = this.calcBaseHeight(datas, height)
     const getDotColor = this.props.getDotColor || null
+
+    const {
+      renderDotContent = () => {
+        return null
+      }
+    } = this.props
+
     data.map((dataset, index) => {
       dataset.data.map((x, i) => {
         const cx =
@@ -43,6 +50,8 @@ class LineChart extends AbstractChart {
             index: i,
             value: x,
             dataset,
+            x: cx,
+            y: cy,
             getColor: opacity => this.getColor(dataset, opacity)
           })
         }
@@ -64,7 +73,8 @@ class LineChart extends AbstractChart {
             fill="#fff"
             fillOpacity={0}
             onPress={onPress}
-          />
+          />,
+          renderDotContent({ x: cx, y: cy, index: i, value: x })
         )
       })
     })
